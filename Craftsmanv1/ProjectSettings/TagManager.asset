@@ -11,6 +11,7 @@ TagManager:
   - two
   - one
   - go
+  - panel
   layers:
   - Default
   - TransparentFX

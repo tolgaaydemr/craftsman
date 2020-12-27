@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class PlayerController : MonoBehaviour
 {
     //degiskenler
@@ -18,9 +19,16 @@ public class PlayerController : MonoBehaviour
     public float zMovement;
     public float xCoordinates;
     
+    public Canvas Test;  
+    
+    
+    
     public Transform spawnPos;
     private GUIStyle guiStyle = new GUIStyle();
     public Animator anim;
+
+    
+    //string[][] array1 = new string[][] { {}{}, }; //sorular tanımlacak!
     
     void Start()
     {
@@ -29,11 +37,12 @@ public class PlayerController : MonoBehaviour
         anim = GetComponent<Animator>();
         anim.SetBool("isRun", false);
         alive = true;
-        
+        Test.GetComponent<Canvas>().enabled = false;
     }
 
     void Update()
     {
+        
         xCoordinates = transform.position.x;
         transform.Translate(new Vector3(xMovement, yMovement, zMovement) * Time.deltaTime);
         if (alive == true && sayac == 0)
@@ -153,7 +162,7 @@ public class PlayerController : MonoBehaviour
         
     }
     
-    void OnCollisionEnter(Collision collision)
+    public void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Ground")
         {
@@ -164,10 +173,21 @@ public class PlayerController : MonoBehaviour
             ground = false;
         }
         if (collision.gameObject.tag == "Lethal") {
+            
+            
+            
+            
+
+
             //animasyonlu olmesi icin
             alive = false;
             xMovement = 0; yMovement = 0; zMovement = 0;
             transform.Translate(new Vector3(xMovement, yMovement, zMovement) * Time.deltaTime);
+            Test.GetComponent<Canvas>().enabled = true; //panel is open
+
+            
+
+            //sorudan sonra animasyon calisacak.
             anim.SetBool("isDead", true);
             
             //direkt olmesi icin
