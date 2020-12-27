@@ -8,7 +8,7 @@ public class gokiller : MonoBehaviour
     {
         transform.position = new Vector3(1f, -0.664f, -21.76f);
     }
-    // Burası github tarafından algılandı.
+    
     // Update is called once per frame
     void Update()
     {
