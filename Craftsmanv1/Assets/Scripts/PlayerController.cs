@@ -106,7 +106,7 @@ public class PlayerController : MonoBehaviour
             if (etkinlik == true)
             {
                 anim.SetBool("isJump", etkinlik);
-                yMovement = 0.03f;
+                yMovement = 0.0f;
                 Debug.Log("Ziplama Basarili");
             }
             else if (etkinlik == false)
@@ -188,6 +188,7 @@ public class PlayerController : MonoBehaviour
             
 
             //sorudan sonra animasyon calisacak.
+            
             anim.SetBool("isDead", true);
             
             //direkt olmesi icin
@@ -196,7 +197,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.tag == "Money") {
             //etkilesime girdiginde para yok oluyor
             Destroy(collision.gameObject);
-            ganimet += 5;
+            ganimet = ganimet+ 5;
         }
     }
     private void OnGUI()
