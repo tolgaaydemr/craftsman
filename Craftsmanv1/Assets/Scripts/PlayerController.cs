@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour
     public Canvas Test;
     public Canvas TestFalse;
     public Text txt;
-    public string ans;
+    public static string ans;
     
     
     
@@ -225,14 +225,7 @@ public class PlayerController : MonoBehaviour
         guiStyle.normal.textColor = Color.red;
         GUI.Label(new Rect(10, 20, 150, 80), "Ganimet: " + ganimet,guiStyle);
     }
-    public void trueAns(){
-        ans = "Dogru";
-        //Debug.Log(ans);
-    }
-    public void falseAns(){
-        ans = "Yanlis";
-        //Debug.Log(ans);
-    }
+   
     IEnumerator milis() {
         Debug.Log("Oyun Basliyor");
         yield return new WaitForSeconds(1);
@@ -251,7 +244,7 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(5);
         Debug.Log("waiting bitti");
         string cevap = questions[1,1];
-        Debug.Log(ans);
+     
         if(ans == cevap){
                 Test.GetComponent<Canvas>().enabled = false;
                 Debug.Log("calisti");
