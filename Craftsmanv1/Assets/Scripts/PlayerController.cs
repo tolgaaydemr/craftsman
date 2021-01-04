@@ -225,11 +225,11 @@ public class PlayerController : MonoBehaviour
         guiStyle.normal.textColor = Color.red;
         GUI.Label(new Rect(10, 20, 150, 80), "Ganimet: " + ganimet,guiStyle);
     }
-    public string trueAns(){
+    public void trueAns(){
         ans = "Dogru";
         //Debug.Log(ans);
     }
-    public string falseAns(){
+    public void falseAns(){
         ans = "Yanlis";
         //Debug.Log(ans);
     }
