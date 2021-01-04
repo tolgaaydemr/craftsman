@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEditor;
 
 
 public class PlayerController : MonoBehaviour
@@ -19,7 +21,10 @@ public class PlayerController : MonoBehaviour
     public float zMovement;
     public float xCoordinates;
     
-    public Canvas Test;  
+    public Canvas Test;
+    public Canvas TestFalse;
+    public Text txt;
+    public string ans;
     
     
     
@@ -28,7 +33,10 @@ public class PlayerController : MonoBehaviour
     public Animator anim;
 
     
-    //string[][] array1 = new string[][] { {}{}, }; //sorular tanımlacak!
+    
+    string[,] questions = new string[,] {{"Türkiye'nin Başkenti İstanbuldur.", "Yanlis"}, 
+                                        {"6x7 işleminin sonucu 42'dir.", "Dogru"}, 
+                                        {"Cumhuriyet 29 Ekim 1923 tarihinde ilan edilmiştir.", "Dogru"}};
     
     void Start()
     {
@@ -176,18 +184,29 @@ public class PlayerController : MonoBehaviour
             
             
             
-            
 
+            
+            
+            
 
             //animasyonlu olmesi icin
             alive = false;
             xMovement = 0; yMovement = 0; zMovement = 0;
             transform.Translate(new Vector3(xMovement, yMovement, zMovement) * Time.deltaTime);
+            
             Test.GetComponent<Canvas>().enabled = true; //panel is open
-
+            //txt.text = soru;
+            
+            string soru = questions[0,0];
+            
+            StartCoroutine(waiting());
+            
+            
+           
             
 
             //sorudan sonra animasyon calisacak.
+            //Doğru yanlış olarak sorular değerlendirilecek! (if else)
             
             anim.SetBool("isDead", true);
             
@@ -206,7 +225,14 @@ public class PlayerController : MonoBehaviour
         guiStyle.normal.textColor = Color.red;
         GUI.Label(new Rect(10, 20, 150, 80), "Ganimet: " + ganimet,guiStyle);
     }
-
+    public string trueAns(){
+        ans = "Dogru";
+        //Debug.Log(ans);
+    }
+    public string falseAns(){
+        ans = "Yanlis";
+        //Debug.Log(ans);
+    }
     IEnumerator milis() {
         Debug.Log("Oyun Basliyor");
         yield return new WaitForSeconds(1);
@@ -220,6 +246,16 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(1);
         Debug.Log(sayac);
     }
-    
+    IEnumerator waiting(){
+        Debug.Log("waiting calisti");
+        yield return new WaitForSeconds(5);
+        Debug.Log("waiting bitti");
+        string cevap = questions[1,1];
+        Debug.Log(ans);
+        if(ans == cevap){
+                Test.GetComponent<Canvas>().enabled = false;
+                Debug.Log("calisti");
+            }
+    }
     
 }
