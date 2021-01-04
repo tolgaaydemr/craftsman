@@ -27,15 +27,9 @@ public class PlayerController : MonoBehaviour
     public static string ans;
     public string soru;
     public string cevap;
-    
-    
-    
     public Transform spawnPos;
     private GUIStyle guiStyle = new GUIStyle();
     public Animator anim;
-
-    
-    
     string[,] questions = new string[,] {
                                         {"Türkiye'nin Başkenti İstanbuldur.", "Yanlis"}, 
                                         {"2x10 işleminin sonucu 20'dir.", "Dogru"}, 
@@ -59,7 +53,6 @@ public class PlayerController : MonoBehaviour
                                         {"İstanbul Ege Bölgesinde yer almaktadır.", "Yanlis"}, 
                                         {"Tebriklerr Oyunu kazandınız", "Haha"}, 
                                         };
-    
     void Start()
     {
         StartCoroutine(milis());
@@ -107,11 +100,6 @@ public class PlayerController : MonoBehaviour
 
         if (xCoordinates >= 1.950f && xCoordinates <= 2.05f && (laneNumber == 2) && alive == true && sayac == 0 && moveAction == true) {
             xMovement = 0f; moveAction = false; }
-
-        
-
-        
-
     }
     private void Hareket(bool etkinlik, int a)
     {
@@ -216,17 +204,10 @@ public class PlayerController : MonoBehaviour
             txt.text = soru;
             
             anim.SetBool("isRevived", true);
-            StartCoroutine(waiting());
-            
-            
-           
-            
-
+            StartCoroutine(waiting());   
             //sorudan sonra animasyon calisacak.
             //Doğru yanlış olarak sorular değerlendirilecek! (if else)
-            
-            
-            
+
             //direkt olmesi icin
             //Destroy(gameObject);
         }
@@ -296,18 +277,10 @@ public class PlayerController : MonoBehaviour
             txt.text = "SureDoldu";
             anim.SetBool("isDead", true);
             }
-
-           
         }
         
         }
         Debug.Log("waiting bitti");
-         
-
-        
-        
-            
-        
     }
     
 }
