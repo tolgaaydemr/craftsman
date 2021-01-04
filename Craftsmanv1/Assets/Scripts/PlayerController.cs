@@ -182,13 +182,6 @@ public class PlayerController : MonoBehaviour
         }
         if (collision.gameObject.tag == "Lethal") {
             
-            
-            
-
-            
-            
-            
-
             //animasyonlu olmesi icin
             alive = false;
             xMovement = 0; yMovement = 0; zMovement = 0;
@@ -198,7 +191,8 @@ public class PlayerController : MonoBehaviour
             //txt.text = soru;
             
             string soru = questions[0,0];
-            
+
+            anim.SetBool("isRevived", true);
             StartCoroutine(waiting());
             
             
@@ -208,7 +202,7 @@ public class PlayerController : MonoBehaviour
             //sorudan sonra animasyon calisacak.
             //Doğru yanlış olarak sorular değerlendirilecek! (if else)
             
-            anim.SetBool("isDead", true);
+            
             
             //direkt olmesi icin
             //Destroy(gameObject);
@@ -241,14 +235,43 @@ public class PlayerController : MonoBehaviour
     }
     IEnumerator waiting(){
         Debug.Log("waiting calisti");
-        yield return new WaitForSeconds(5);
-        Debug.Log("waiting bitti");
-        string cevap = questions[1,1];
-     
-        if(ans == cevap){
+        
+        float timer = 5f;
+        for (; timer>0;timer-=0.1f)
+        {
+            yield return new WaitForSeconds(0.1f);
+            string cevap = questions[1, 1];
+            string yanlis = "Yanlis";
+
+            if (ans == cevap)
+            {
                 Test.GetComponent<Canvas>().enabled = false;
                 Debug.Log("calisti");
+                txt.text = "Dogru";
+
+                xMovement = 0; yMovement = 0; zMovement = 5f;
+                anim.SetBool("isRevived", false);
+                alive = true;
+                ans = "";
+                txt.text = "";
+                break;
             }
+            else if(ans==yanlis)
+            {
+                txt.text = "Yanlis";
+                anim.SetBool("isDead", true);
+                ans = "";
+                txt.text = "";
+                break;
+            }
+        }
+        Debug.Log("waiting bitti");
+
+        
+        if(timer==0)
+            txt.text = "SureDoldu";
+            anim.SetBool("isDead", true);
+        
     }
     
 }
