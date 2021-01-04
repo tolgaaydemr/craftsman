@@ -20,11 +20,13 @@ public class PlayerController : MonoBehaviour
     public float yMovement;
     public float zMovement;
     public float xCoordinates;
-    
+    public int number = 0;
     public Canvas Test;
     public Canvas TestFalse;
     public Text txt;
     public static string ans;
+    public string soru;
+    public string cevap;
     
     
     
@@ -36,6 +38,10 @@ public class PlayerController : MonoBehaviour
     
     string[,] questions = new string[,] {{"Türkiye'nin Başkenti İstanbuldur.", "Yanlis"}, 
                                         {"6x7 işleminin sonucu 42'dir.", "Dogru"}, 
+                                        {"8x10 işleminin sonucu 80'dir.", "Dogru"}, 
+                                        {"Türkiye'nin 7 bölgesi vardır", "Dogru"}, 
+                                        {"30 Ağustos Ulusal Eğemenlik ve Çocuk Bayramıdır", "Yanlis"}, 
+                                        {"2x10 işleminin sonucu 22'dir.", "Yanlis"}, 
                                         {"Cumhuriyet 29 Ekim 1923 tarihinde ilan edilmiştir.", "Dogru"}};
     
     void Start()
@@ -186,12 +192,13 @@ public class PlayerController : MonoBehaviour
             alive = false;
             xMovement = 0; yMovement = 0; zMovement = 0;
             transform.Translate(new Vector3(xMovement, yMovement, zMovement) * Time.deltaTime);
+             
             
+            soru = questions[number,0];
+            cevap = questions[number, 1];
             Test.GetComponent<Canvas>().enabled = true; //panel is open
-            //txt.text = soru;
+            txt.text = soru;
             
-            string soru = questions[0,0];
-
             anim.SetBool("isRevived", true);
             StartCoroutine(waiting());
             
@@ -236,41 +243,54 @@ public class PlayerController : MonoBehaviour
     IEnumerator waiting(){
         Debug.Log("waiting calisti");
         
-        float timer = 5f;
-        for (; timer>0;timer-=0.1f)
+        float timer = 10f;
+        for (; timer>=0.0f;timer-=0.1f)
         {
             yield return new WaitForSeconds(0.1f);
-            string cevap = questions[1, 1];
-            string yanlis = "Yanlis";
-
-            if (ans == cevap)
+           
+        if(ans!=null){
+            if (cevap == ans)
             {
                 Test.GetComponent<Canvas>().enabled = false;
                 Debug.Log("calisti");
                 txt.text = "Dogru";
-
-                xMovement = 0; yMovement = 0; zMovement = 5f;
+                Debug.Log(ans);
+                xMovement = 0; yMovement = 0; zMovement = 10f;
                 anim.SetBool("isRevived", false);
                 alive = true;
-                ans = "";
+                ans = null;
+                if(number==6)
+                    number=0;
+                else
+                number++;
                 txt.text = "";
+                Debug.Log(number);
                 break;
             }
-            else if(ans==yanlis)
+             else
             {
                 txt.text = "Yanlis";
                 anim.SetBool("isDead", true);
-                ans = "";
-                txt.text = "";
+                Test.GetComponent<Canvas>().enabled = false;
                 break;
             }
-        }
-        Debug.Log("waiting bitti");
-
-        
-        if(timer==0)
+            if(timer<0)
+            {
+            Test.GetComponent<Canvas>().enabled = false;
             txt.text = "SureDoldu";
             anim.SetBool("isDead", true);
+            }
+
+           
+        }
+        
+        }
+        Debug.Log("waiting bitti");
+         
+
+        
+        
+            
         
     }
     
