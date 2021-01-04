@@ -36,13 +36,29 @@ public class PlayerController : MonoBehaviour
 
     
     
-    string[,] questions = new string[,] {{"Türkiye'nin Başkenti İstanbuldur.", "Yanlis"}, 
-                                        {"6x7 işleminin sonucu 42'dir.", "Dogru"}, 
-                                        {"8x10 işleminin sonucu 80'dir.", "Dogru"}, 
-                                        {"Türkiye'nin 7 bölgesi vardır", "Dogru"}, 
+    string[,] questions = new string[,] {
+                                        {"Türkiye'nin Başkenti İstanbuldur.", "Yanlis"}, 
+                                        {"2x10 işleminin sonucu 20'dir.", "Dogru"}, 
                                         {"30 Ağustos Ulusal Eğemenlik ve Çocuk Bayramıdır", "Yanlis"}, 
-                                        {"2x10 işleminin sonucu 22'dir.", "Yanlis"}, 
-                                        {"Cumhuriyet 29 Ekim 1923 tarihinde ilan edilmiştir.", "Dogru"}};
+                                        {"Cumhuriyet 29 Ekim 1923 tarihinde ilan edilmiştir.", "Dogru"},
+                                        {"8x10 işleminin sonucu 80'dir.", "Dogru"}, 
+                                        {"Türkiye Cumhuriyetinin ilk cumhurbaşkanı Mustafa Kemal Atatürktür.", "Dogru"}, 
+                                        {"Türkiyenin iki tarafı denizlerle kaplıdır.", "Yanlis"}, 
+                                        {"6x7 işleminin sonucu 40'dir.", "Yanlis"}, 
+                                        {"Dinazorlar nesli tükenmiş dev hayvanlardırdır", "Dogru"}, 
+                                        {"İnsanlar 43 kromozomludur", "Yanlis"}, 
+                                        {"Kanada bir Avrupa ülkesidir.", "Yanlis"}, 
+                                        {"Türkiye'nin 7 bölgesi vardır", "Dogru"}, 
+                                        {"34x12 işleminin sonucu 298'dir.", "Yanlis"}, 
+                                        {"Geceleri yönümüzü bulmak için Ay'ı kullanabiliriz.", "Yanlis"}, 
+                                        {"Erciyes Dağı volkanik bir dağdır", "Dogru"}, 
+                                        {"Gülü ile meşhur ilimiz Isparta'dır", "Dogru"}, 
+                                        {"İstiklal Şairi olarak anılan şairimiz Mehmet Akif Ersoy'dur", "Dogru"}, 
+                                        {"Duvara asılı bir haritanın sağı her zaman Batıyı gösterir ", "Yanlis"}, 
+                                        {"Çanakkale Savaşı sırasında 215 kg’lık mermiyi tek başına kaldıran Türk askeri Seyit Onbaşıdır.", "Dogru"}, 
+                                        {"İstanbul Ege Bölgesinde yer almaktadır.", "Yanlis"}, 
+                                        {"Tebriklerr Oyunu kazandınız", "Haha"}, 
+                                        };
     
     void Start()
     {
@@ -243,7 +259,7 @@ public class PlayerController : MonoBehaviour
     IEnumerator waiting(){
         Debug.Log("waiting calisti");
         
-        float timer = 10f;
+        float timer = 15f;
         for (; timer>=0.0f;timer-=0.1f)
         {
             yield return new WaitForSeconds(0.1f);
@@ -259,7 +275,7 @@ public class PlayerController : MonoBehaviour
                 anim.SetBool("isRevived", false);
                 alive = true;
                 ans = null;
-                if(number==6)
+                if(number==19)
                     number=0;
                 else
                 number++;
@@ -269,9 +285,9 @@ public class PlayerController : MonoBehaviour
             }
              else
             {
-                txt.text = "Yanlis";
+                txt.text = "Üzgünüm yanlış cevap verdin :(";
                 anim.SetBool("isDead", true);
-                Test.GetComponent<Canvas>().enabled = false;
+               // Test.GetComponent<Canvas>().enabled = false;
                 break;
             }
             if(timer<0)
